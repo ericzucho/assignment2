@@ -54,9 +54,29 @@ defmodule Ex03 do
   be used if needed.)
 
   """
+  def map([],_func) do
+    []
+  end
+  def map([h | t],func) do
+    [func.(h) | map(t,func)]
+  end
 
-  def odd_even . . . "your code"
+  def reduce([],value,_func) do
+    value
+  end
+  def reduce([h | t],value,func) do
+    new_value = func.(h,value)
+    reduce(t,new_value,func)
+  end
 
+  def odd_even(list) do
+    map(list,fn number ->
+       cond do
+         Integer.is_even(number) -> :even
+         Integer.is_odd(number) -> :odd
+       end
+     end)
+  end
 
   ##############################################################################
   # 3.2:  5 points #
@@ -77,7 +97,12 @@ defmodule Ex03 do
 
   """
 
-  def list_contains . .. "your code"
+  def list_contains(list,number) do
+    reduce(list,false,fn
+      ^number,_result -> true
+      _anotherNumber,result -> result
+     end)
+  end
 
   ##############################################################################
   # 3.3:  5 points #
@@ -101,7 +126,21 @@ defmodule Ex03 do
 
   """
 
-  def list_equal . . . "your code"
+  def list_equal([_head1 | tail1],[_head1 | tail2]) do
+    list_equal(tail1,tail2)
+  end
+  def list_equal([_head1 | _tail1],[_head2 | _tail2]) do
+    false
+  end
+  def list_equal([],[]) do
+    true
+  end
+  def list_equal([_head | _tail],[]) do
+    false
+  end
+  def list_equal([],[_head|_tail]) do
+    false
+  end
 
 
 
@@ -149,7 +188,27 @@ defmodule Ex03 do
   Think a little about a nice way to lay this code out.
   """
 
-  def won . . . "your code"
+  def won({ele1,ele2,ele3,ele4,ele5,ele6,ele7,ele8,ele9}) do
+    possibilities = [_getWinner(ele1,ele2,ele3),_getWinner(ele4,ele5,ele6), _getWinner(ele7,ele8,ele9),
+    _getWinner(ele1,ele4,ele7), _getWinner(ele2,ele5,ele8), _getWinner(ele3,ele6,ele9),
+    _getWinner(ele1,ele5,ele9), _getWinner(ele3,ele5,ele7)]
+    won(possibilities)
+  end
+  def won([head | tail]) do
+    cond do
+      head != false -> head
+      head == false -> won(tail)
+    end
+  end
+  def won([]) do
+    false
+  end
+  def _getWinner(symbol,symbol,symbol) do
+    symbol
+  end
+  def _getWinner(symbol1,symbol2,symbol3) do
+    false
+  end
 
 
   ###########################
