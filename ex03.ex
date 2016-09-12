@@ -206,7 +206,7 @@ defmodule Ex03 do
   def _getWinner(symbol,symbol,symbol) do
     symbol
   end
-  def _getWinner(symbol1,symbol2,symbol3) do
+  def _getWinner(_symbol1,_symbol2,_symbol3) do
     false
   end
 
